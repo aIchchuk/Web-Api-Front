@@ -1,0 +1,29 @@
+.background {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #ff00cc, #333399, #00ffff);
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.blackbox {
+  margin-top: 7vh;
+  height: 75vh;
+  width: 80vw;
+  border: solid white;
+  background: rgba(10, 10, 10, 0.3); /* Optional: jelly-style background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  border-radius: 20px;
+}
+
+.music_player{
+  height: 75vh;
+  width: 80vw;
+  border: solid white;
+}
