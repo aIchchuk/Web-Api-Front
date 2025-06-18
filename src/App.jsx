@@ -12,7 +12,7 @@ import Footer from './components/Landing Page/Footer';
 
 import Login from './components/Login/Login';
 import Register from './components/Register/register';
-import Home from './components/Dashboard/Home'; // Dashboard page
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -41,8 +41,11 @@ function App() {
         {/* Register Page */}
         <Route path="/register" element={<Register />} />
 
-        {/* Dashboard Page */}
-        <Route path="/dashboard" element={<Home />} />
+        {/* Dashboard Page
+        <Route path="/dashboard" element={<Home />} /> */}
+
+        {/* Navigation Side bar Page */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,4 @@
-Reset
+   
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +7,8 @@ Reset
 
 body {
   font-family: 'Segoe UI', 'Poppins', sans-serif;
-  background: radial-gradient(ellipse at top left, #1e1b4b, #0f172a);
+  /* background: radial-gradient(ellipse at top left, #1e1b4b, #0f172a); */
+  background: linear-gradient(135deg,#ff00cc, #333399, #00ffff);
   color: #f1f5f9;
   overflow-x: hidden;
   line-height: 1.6;
@@ -357,7 +358,7 @@ body {
   color: white;
   text-align: center;
   padding: 6rem 2rem;
-  border-radius: 20px;
+
 }
 
 .cta button {
