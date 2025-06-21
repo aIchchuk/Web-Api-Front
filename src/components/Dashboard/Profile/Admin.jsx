@@ -15,10 +15,11 @@ const AdminSettings = () => (
     <p>Update system preferences here.</p>
   </div>
 );
-
+//
 const AdminDashboard = () => (
   <div>
     <h2>Admin Dashboard</h2>
+    <p>Dashboard</p>
     <p>Welcome to the admin control panel.</p>
   </div>
 );
