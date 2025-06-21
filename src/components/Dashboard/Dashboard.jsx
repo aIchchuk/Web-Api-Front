@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import SearchBar from './SearchBar';
+import SearchBar from './Searchbar'
 import MusicPlayer from './MusicPlayer';
 import MainScreen from './mainScreen';
 import './Dashboard.css';

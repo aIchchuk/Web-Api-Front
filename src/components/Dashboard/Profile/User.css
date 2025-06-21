@@ -1,0 +1,10 @@
+.userProfile {
+  background: linear-gradient(135deg, #ff00cc, #333399, #00ffff);
+  display: flex;
+  flex-direction: column;
+  height: 46.4rem;
+  width: 100vw;
+  position: relative;
+  color: #eee;
+  overflow: hidden;
+}

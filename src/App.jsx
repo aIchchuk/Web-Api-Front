@@ -13,6 +13,7 @@ import Footer from './components/Landing Page/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/register';
 import Dashboard from './components/Dashboard/Dashboard';
+import MyAccount from './components/Dashboard/Profile/MyAccount';
 
 function App() {
   return (
@@ -43,6 +44,8 @@ function App() {
 
         {/* Dashboard Page
         <Route path="/dashboard" element={<Home />} /> */}
+
+        <Route path="/my-account" element={<MyAccount />} />
 
         {/* Navigation Side bar Page */}
         <Route path="/dashboard" element={<Dashboard />} />
