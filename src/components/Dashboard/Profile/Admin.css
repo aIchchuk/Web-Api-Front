@@ -1,10 +1,42 @@
 .adminProfile {
+  padding: 2rem;
+  color: #fff;
   background: linear-gradient(135deg, #ff00cc, #333399, #00ffff);
+  height: 46.4rem;
   display: flex;
   flex-direction: column;
-  height: 46.4rem;
-  width: 100vw;
-  position: relative;
-  color: #eee;
-  overflow: hidden;
+  align-items: center;
+}
+
+.adminNav {
+  margin-bottom: 1.5rem;
+}
+
+.adminNav button {
+  margin: 0 0.5rem;
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #00ffff;
+  color: #000;
+  transition: background-color 0.3s ease;
+}
+
+.adminNav button:hover {
+  background-color: #00cccc;
+}
+
+.adminContent {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 900px;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.users{
+    width: max-content;
 }

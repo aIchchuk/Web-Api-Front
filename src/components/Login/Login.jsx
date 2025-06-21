@@ -18,7 +18,8 @@ const Login = () => {
       if (res.data.token) {
         // Store the token securely (for now, using localStorage)
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', JSON.stringify(res.data.user)); // optional
+        localStorage.setItem('user', JSON.stringify(res.data.user)); // if needed
+
 
         navigate('/dashboard');
       } else {
