@@ -47,3 +47,48 @@
 .search-input::placeholder {
   color: #aaa;
 }
+
+.Profile {
+  position: absolute;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-right: 5rem;
+}
+
+.profile-pic {
+  width: 38px;
+  height: 38px;
+  background-color: #888;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #fff;
+}
+
+/* For when you replace with an image */
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.Profile button {
+  background: #000000;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.Profile button:hover {
+  background: #ffffff;
+  color: black;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}

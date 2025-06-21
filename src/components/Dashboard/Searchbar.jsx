@@ -13,6 +13,13 @@ const Searchbar = () => {
           className="search-input"
         />
       </div>
+
+      <div className="Profile">
+        <div className="profile-pic">
+          <img src="/path-to-profile.jpg" alt="Profile" />
+        </div>
+        <button>My Account</button>
+      </div>
     </div>
   );
 };
