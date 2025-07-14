@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import axios from 'axios';
 import './Login.css';
+import { AuthService } from '../../../Expected Structure/services/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,7 +13,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/login', { email, password });
+      const res = await AuthService.login(email, password);
+      navigate('/dashboard');
 
       if (res.data.token) {
         // Store the token securely (for now, using localStorage)

@@ -8,27 +8,26 @@ import './register.css';
 const Register = () => {
    const navigate = useNavigate();
 
-   const [name, setName] = useState();
+   const [fullName, setName] = useState();
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      axios.post('http://localhost:5000/register', {name, email, password})
+      axios.post('http://localhost:5000/auth/register', {fullName, email, password})
       .then(result => {console.log(result)
         navigate('/login')
       })
       .catch(err=> console.log(err))
     }
   
-
   return (
     <section className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
         <p>Sign Up</p>
 
-        <input type="name" placeholder="Name" onChange={(e) => setName(e.target.value)}/>
+        <input type="full name" placeholder="Full Name" onChange={(e) => setName(e.target.value)}/>
         
         <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
 
