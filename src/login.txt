@@ -1,0 +1,35 @@
+import axios from "axios";
+import { useContext, useState } from "react";
+import { AuthContext } from "./AuthProvider";
+
+const LoginPage = () => {
+  const { login } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login", {
+        email,
+        password,
+      });
+
+      login(res.data.user, res.data.token);
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
+    }
+  };
+
+  return (
+    <>
+      <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+      <input
+        type="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button onClick={handleLogin}>Log In</button>
+    </>
+  );
+};
