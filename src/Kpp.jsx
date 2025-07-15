@@ -15,7 +15,7 @@ import Register from './My Structure/components/Register/register';
 import Dashboard from './My Structure/components/Dashboard/Dashboard';
 import MyAccount from './My Structure/components/Dashboard/Profile/MyAccount';
 
-function App() {
+function Kpp() {
   return (
     <Router>
       <Routes>
@@ -54,4 +54,4 @@ function App() {
   );
 }
 
-export default App;
+export default Kpp;
