@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './Expected Structure/pages/HomePage'
 import MainLayout from './Expected Structure/layouts/MainLayout'
 import ChatPanel from './Expected Structure/components/layout_components/ChatPanel'
+import AlbumPage from './Expected Structure/pages/AlbumPage'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
 
           <Route path = '/' element = {<HomePage/>}></Route>
           <Route path = '/chat' element = {<ChatPanel/>}></Route>
+          <Route path = '/album/:albumId' element = {<AlbumPage/>}></Route>
 
         </Route>
       </Routes>

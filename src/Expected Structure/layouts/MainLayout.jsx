@@ -13,25 +13,25 @@ export default function MainLayout() {
 
       {/* Middle Resizable Panels */}
       <div className="pt-[70px] pb-[100px] h-full">
-        <PanelGroup direction="horizontal" className="h-full gap-2 px-2 bg-neutral-800">
+        <PanelGroup direction="horizontal" className="h-full gap-2 px-2 ">
           
           {/* Sidebar (Left Panel) */}
           <Panel defaultSize={20} minSize={15} maxSize={25}>
-            <div className="h-full bg-neutral-900 border border-neutral-700 rounded-md p-4">
+            <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4">
               <Sidebar />
             </div>
           </Panel>
 
           {/* Main Content (Center Panel) */}
           <Panel defaultSize={60} minSize={40}>
-            <div className="h-full bg-neutral-900 border border-neutral-700 rounded-md p-4 overflow-y-auto">
+            <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4 overflow-y-auto">
               <Outlet /> {/* ✅ This replaces <MainContent /> */}
             </div>
           </Panel>
 
           {/* Chat Panel (Right Panel) */}
           <Panel defaultSize={20} minSize={15} maxSize={25}>
-            <div className="h-full bg-neutral-900 border border-neutral-700 rounded-md p-4">
+            <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4">
               <ChatPanel />
             </div>
           </Panel>

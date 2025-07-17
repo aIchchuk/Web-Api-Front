@@ -1,57 +1,72 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { HomeIcon, Library, MessageCircleIcon } from 'lucide-react';
-import PlaylistSkeleton from '../skeletons/PlaylistSkeleton';
+import { useEffect } from "react";
+// import { useSong } from "../../hooks/useSong";
+import { useAlbum } from "../../hooks/useAlbum";
+import PlaylistSkeleton from "../layout_components/skeleton/PlaylistSkeleton";
+import { HomeIcon, Library, MessageCircleIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-    const isLoading = true;
+  // const { songs, isLoading: isSongsLoading, fetchAllSongs } = useSong();
+  const { album, isLoading: isAlbumLoading, fetchAllAlbum } = useAlbum();
+
+  useEffect(() => {
+    // fetchAllSongs();
+    fetchAllAlbum();
+  }, []);
+
   return (
     <div className="h-full flex flex-col">
-      {/* Navigation Menu */}
-      <div className="rounded-md w-full outline-1 mb-4">
-        <Link
-          to="/"
-          className="flex items-center gap-4 rounded-md px-3 py-2 mb-3 text-sm font-medium text-white hover:bg-zinc-800 hover:text-white transition-all duration-150"
-        >
+      {/* Navigation */}
+      <div className="rounded-md w-full mb-3 border-b border-t">
+        <Link to="/" className="flex items-center gap-4 px-3 py-3 text-sm text-white hover:bg-zinc-800">
           <HomeIcon className="size-5" />
           <span className="hidden md:inline">Home</span>
         </Link>
-
-        <Link
-          to="/chat"
-          className="flex items-center gap-4 rounded-md px-3 py-2 mt-3 text-sm font-medium text-white hover:bg-zinc-700 hover:text-white transition-all duration-150"
-        >
+        <Link to="/chat" className="flex items-center gap-4 px-3 py-3 text-sm text-white hover:bg-zinc-800">
           <MessageCircleIcon className="size-5" />
           <span className="hidden md:inline">Messages</span>
         </Link>
       </div>
 
-      {/* Playlists Section */}
-      <div className="flex-1 rounded-md w-full  mt-4 outline-1">
-        <div className="flex items-center gap-4 rounded-md px-3 py-2 mb-3 text-lg font-medium text-white " >
+      {/* Playlists // LATER NEED TO DO FOR PLAYLISTS */}
+      
+      <div className="rounded-md w-full border-b border-t mt-3">
+        <div className="flex items-center gap-4 px-3 py-2 mb-2 text-lg text-white">
           <Library className="size-6" />
-          <span className="hidden md:inline">Playlists</span>
+          <span className="hidden md:inline">Albums</span>
         </div>
-
-        {/* You can add a scrollable playlist list here later */}
-        <div className=" h-[365px] mt-3 overflow-y-auto rounded-md [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          
-          
-          <div className = ' space-y-2 '>
-            {isLoading ? (
-                <PlaylistSkeleton></PlaylistSkeleton>
+        <div className="h-[370px] overflow-y-auto [&::-webkit-scrollbar]:hidden">
+          <div className="space-y-2 px-2">
+            {isAlbumLoading ? (
+              <PlaylistSkeleton />
+            ) : album.length ? (
+              album.map((album) => (
+                <Link
+                  to={`/album/${album._id}`}
+                  key={album._id}
+                  className="flex items-center gap-3 p-2 hover:bg-zinc-800 rounded-md"
+                >
+                  <img
+                    src={album.albumImageUrl}
+                    alt={album.albumName}
+                    className="w-12 h-12 object-cover rounded-md"
+                  />
+                  <div className="hidden md:block min-w-0">
+                    <p className="text-white font-medium truncate">{album.albumName}</p>
+                    <p className="text-zinc-400 text-sm truncate">By {album.artistName}</p>
+                  </div>
+                </Link>
+              ))
             ) : (
-                <>
-                    <div className="p-2 rounded hover:bg-white hover:text-black transition">Chill Vibes</div>
-                    <div className="p-2 rounded hover:bg-white hover:text-black transition">Chill Vibes</div>
-                </>
+              <p className="text-white text-sm px-2">No albums found</p>
             )}
           </div>
-          
         </div>
       </div>
-    </div>
-  )
-}
 
-export default Sidebar
+      
+    </div>
+  );
+};
+
+export default Sidebar;

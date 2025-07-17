@@ -7,16 +7,15 @@ import {
   FaVolumeUp,
 } from 'react-icons/fa';
 
+
+
 const Player = () => {
   return (
     <div className="fixed bottom-0 left-6 right-6 h-[90px] bg-[rgba(43,43,43,0.868)] rounded-t-2xl shadow-[0_-4px_20px_rgba(27,27,27,0.559)] flex items-center justify-between px-10 text-white font-medium text-base z-[150] w-auto gap-x-6">
       
       {/* Music Info */}
       <div className = 'flex items-center justify-between gap-4'>
-        <img
-            src="/src/Expected Structure/assets/images/Original audio.jpg"
-            className="w-12 h-12 rounded-md object-cover"
-          />
+        <img src = "../../assets/pretty ho3.jpg" className="w-12 h-12 rounded-md object-cover"></img>
         <div className="flex flex-col justify-center min-w-[150px]">
           <p className="m-0 font-bold text-sm font-sans">Now Playing</p>
           <span className="text-xs font-semibold text-[#ffd6cc]">Artist – Song Title</span>
