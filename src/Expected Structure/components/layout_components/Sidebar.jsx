@@ -35,7 +35,7 @@ const Sidebar = () => {
           <Library className="size-6" />
           <span className="hidden md:inline">Albums</span>
         </div>
-        <div className="h-[370px] overflow-y-auto [&::-webkit-scrollbar]:hidden">
+        <div className="h-[370px] overflow-y-auto [&::-webkit-scrollbar]:hidden ">
           <div className="space-y-2 px-2">
             {isAlbumLoading ? (
               <PlaylistSkeleton />

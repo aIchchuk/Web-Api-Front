@@ -24,7 +24,7 @@ export default function MainLayout() {
 
           {/* Main Content (Center Panel) */}
           <Panel defaultSize={60} minSize={40}>
-            <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4 overflow-y-auto">
+            <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4 overflow-y-auto [&::-webkit-scrollbar]:hidden">
               <Outlet /> {/* ✅ This replaces <MainContent /> */}
             </div>
           </Panel>
