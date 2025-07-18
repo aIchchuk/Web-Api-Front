@@ -2,7 +2,10 @@ import React from 'react'
 
 const ChatPanel = () => {
   return (
-    <div>ChatPanel</div>
+    <div>ChatPanel
+
+      Hello
+    </div>
   )
 }
 

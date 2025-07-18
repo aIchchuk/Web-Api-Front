@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { axiosInstance } from "../api/api.js";
 import toast from "react-hot-toast";
+import {
+  getAllSongs,
+  getSongById,
+  createSongRequest,
+  updateSongRequest,
+  deleteSongRequest,
+} from "../services/songService";
 
 export const useSong = () => {
   const [songs, setSongs] = useState([]);
@@ -8,13 +14,12 @@ export const useSong = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // GET: All Songs
   const fetchAllSongs = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await axiosInstance.get("/song/getAllSong");
-      setSongs(res.data?.data || []); // ✅ fallback to empty array
+      const data = await getAllSongs();
+      setSongs(data);
     } catch (err) {
       setError(err.message);
       toast.error("Failed to load songs");
@@ -23,12 +28,11 @@ export const useSong = () => {
     }
   };
 
-  // GET: Song by ID
   const fetchSongById = async (id) => {
     setIsLoading(true);
     try {
-      const res = await axiosInstance.get(`/song/getSongById/${id}`);
-      setCurrentSong(res.data?.data || null);
+      const data = await getSongById(id);
+      setCurrentSong(data);
     } catch (err) {
       setError(err.message);
       toast.error("Failed to fetch song");
@@ -37,26 +41,12 @@ export const useSong = () => {
     }
   };
 
-  // POST: Create Song
-  const createSong = async ({ songName, artistName, albumName, songImage, audioFile, songImageUrl, audioUrl }) => {
+  const createSong = async (songData) => {
     setIsLoading(true);
-    const formData = new FormData();
-    formData.append("songName", songName);
-    formData.append("artistName", artistName);
-    if (albumName) formData.append("albumName", albumName);
-    if (songImage) formData.append("songImage", songImage);
-    if (audioFile) formData.append("audioFile", audioFile);
-    if (songImageUrl) formData.append("songImageUrl", songImageUrl);
-    if (audioUrl) formData.append("audioUrl", audioUrl);
-
     try {
-      const res = await axiosInstance.post("/song/createSong", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+      await createSongRequest(songData);
       toast.success("Song created successfully");
-      fetchAllSongs(); // refresh list
-      return res.data;
+      fetchAllSongs();
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to create song");
     } finally {
@@ -64,11 +54,10 @@ export const useSong = () => {
     }
   };
 
-  // PUT: Update Song
   const updateSong = async (id, payload) => {
     setIsLoading(true);
     try {
-      await axiosInstance.put(`/song/updateSong/${id}`, payload);
+      await updateSongRequest(id, payload);
       toast.success("Song updated");
       fetchAllSongs();
     } catch (err) {
@@ -79,11 +68,10 @@ export const useSong = () => {
     }
   };
 
-  // DELETE: Delete Song
   const deleteSong = async (id) => {
     setIsLoading(true);
     try {
-      await axiosInstance.delete(`/song/deleteSong/${id}`);
+      await deleteSongRequest(id);
       toast.success("Song deleted");
       setSongs((prev) => prev.filter((song) => song._id !== id));
     } catch (err) {

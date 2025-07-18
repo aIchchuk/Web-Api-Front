@@ -4,6 +4,7 @@ import Sidebar from '../components/layout_components/Sidebar'
 import Searchbar from '../components/layout_components/SearchBar'
 import ChatPanel from '../components/layout_components/ChatPanel'
 import Player from '../components/layout_components/Player'
+import Friends from '../components/layout_components/Friends'
 
 export default function MainLayout() {
   return (
@@ -32,7 +33,7 @@ export default function MainLayout() {
           {/* Chat Panel (Right Panel) */}
           <Panel defaultSize={20} minSize={15} maxSize={25}>
             <div className="h-full bg-neutral-950 border border-neutral-700 rounded-md p-4">
-              <ChatPanel />
+              <Friends />
             </div>
           </Panel>
         </PanelGroup>

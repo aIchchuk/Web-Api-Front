@@ -1,10 +1,10 @@
 import { useState, useCallback } from "react";
-import { axiosInstance } from "../api/api";
 import toast from "react-hot-toast";
+import { getAllAlbums, getAlbumById } from "../services/albumService";
 
 export const useAlbum = () => {
-  const [album, setAlbum] = useState([]); // list of all albums
-  const [currentAlbum, setCurrentAlbum] = useState(null); // one album by ID
+  const [album, setAlbum] = useState([]);
+  const [currentAlbum, setCurrentAlbum] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -12,8 +12,8 @@ export const useAlbum = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await axiosInstance.get("/album");
-      setAlbum(res.data?.data || []);
+      const data = await getAllAlbums();
+      setAlbum(data);
     } catch (err) {
       toast.error("Failed to fetch albums");
       setError(err.message || "Unknown error");
@@ -25,10 +25,9 @@ export const useAlbum = () => {
   const fetchAlbumById = useCallback(async (albumId) => {
     setIsLoading(true);
     setError(null);
-
     try {
-      const response = await axiosInstance.get(`/album/${albumId}`); // fixed URL
-      setCurrentAlbum(response.data?.data || null); // set currentAlbum state
+      const data = await getAlbumById(albumId);
+      setCurrentAlbum(data);
     } catch (err) {
       toast.error("Failed to fetch album");
       setError(err.message || "Unknown error");
@@ -38,10 +37,8 @@ export const useAlbum = () => {
     }
   }, []);
 
-  // Optional helper to find album by ID from album list
-  const findAlbumById = (albumId) => {
-    return album.find((albumItem) => albumItem._id === albumId) || null;
-  };
+  const findAlbumById = (albumId) =>
+    album.find((albumItem) => albumItem._id === albumId) || null;
 
   return {
     album,

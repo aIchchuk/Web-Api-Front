@@ -17,7 +17,7 @@ const Sidebar = () => {
   return (
     <div className="h-full flex flex-col">
       {/* Navigation */}
-      <div className="rounded-md w-full mb-3 border-b border-t">
+      <div className="rounded-md w-full mb-3 border-t">
         <Link to="/" className="flex items-center gap-4 px-3 py-3 text-sm text-white hover:bg-zinc-800">
           <HomeIcon className="size-5" />
           <span className="hidden md:inline">Home</span>
@@ -30,7 +30,7 @@ const Sidebar = () => {
 
       {/* Playlists // LATER NEED TO DO FOR PLAYLISTS */}
       
-      <div className="rounded-md w-full border-b border-t mt-3">
+      <div className="rounded-md w-full border-t mt-3">
         <div className="flex items-center gap-4 px-3 py-2 mb-2 text-lg text-white">
           <Library className="size-6" />
           <span className="hidden md:inline">Albums</span>

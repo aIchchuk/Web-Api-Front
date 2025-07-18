@@ -7,6 +7,8 @@ import HomePage from './Expected Structure/pages/HomePage'
 import MainLayout from './Expected Structure/layouts/MainLayout'
 import ChatPanel from './Expected Structure/components/layout_components/ChatPanel'
 import AlbumPage from './Expected Structure/pages/AlbumPage'
+import LoginPage from './Expected Structure/pages/LoginPage'
+import RegisterPage from './Expected Structure/pages/RegisterPage'
 
 const App = () => {
   return (
@@ -18,8 +20,10 @@ const App = () => {
           <Route path = '/' element = {<HomePage/>}></Route>
           <Route path = '/chat' element = {<ChatPanel/>}></Route>
           <Route path = '/album/:albumId' element = {<AlbumPage/>}></Route>
-
+  
         </Route>
+        <Route path = '/login' element = {<LoginPage/>} ></Route>
+        <Route path = '/register' element = {<RegisterPage/>} ></Route>
       </Routes>
 
       {/* <Searchbar></Searchbar>
