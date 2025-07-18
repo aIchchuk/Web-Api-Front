@@ -1,11 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUser } from '../hooks/useLoginUser'; // make sure path is correct
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const loginMutation = useLoginUser();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => navigate('/'), // redirect after login
+      }
+    );
+  };
+
   return (
     <div className="h-full bg-black [&::-webkit-scrollbar]:hidden">
       <section className="flex items-center justify-center min-h-screen">
         <form
+          onSubmit={handleSubmit}
           className="w-full max-w-[420px] text-center text-slate-100
                      bg-white/5 border border-white/10 rounded-3xl p-12
                      backdrop-blur-md shadow-[0_12px_50px_rgba(0,0,0,0.35)]
@@ -25,6 +42,8 @@ const LoginPage = () => {
             type="email"
             placeholder="Email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-3.5 mb-6 rounded-full bg-white/10
                        text-slate-100 text-base outline-none
                        shadow-inner shadow-black/10 placeholder:text-slate-400
@@ -35,22 +54,25 @@ const LoginPage = () => {
             type="password"
             placeholder="Password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3.5 mb-6 rounded-full bg-white/10
                        text-slate-100 text-base outline-none
                        shadow-inner shadow-black/10 placeholder:text-slate-400
                        focus:bg-white/20 transition-colors"
           />
 
-          <Link
-            to="/"
+          <button
+            type="submit"
             className="block w-full mt-2 bg-white text-indigo-700 
                        font-semibold text-base py-3 rounded-full 
                        shadow-[0_8px_22px_rgba(0,0,0,0.25)] 
                        transition-all hover:bg-slate-50 hover:scale-[1.04] 
                        text-center"
+            disabled={loginMutation.isLoading}
           >
-            Sign In
-          </Link>
+            {loginMutation.isLoading ? 'Signing In...' : 'Sign In'}
+          </button>
 
           <Link
             to="/register"

@@ -1,11 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterUser } from '../hooks/useRegisterUser'; // make sure path is correct
 
 const RegisterPage = () => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const registerMutation = useRegisterUser();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    registerMutation.mutate(
+      { fullName, email, password },
+      {
+        onSuccess: () => navigate('/login'), // or '/' if auto-login is active
+      }
+    );
+  };
+
   return (
     <div className="h-full bg-black [&::-webkit-scrollbar]:hidden">
       <section className="flex items-center justify-center min-h-screen">
         <form
+          onSubmit={handleSubmit}
           className="w-full max-w-[420px] text-center text-slate-100 
                      bg-white/5 border border-white/10 rounded-3xl 
                      p-12 backdrop-blur-md shadow-[0_12px_50px_rgba(0,0,0,0.35)] 
@@ -24,6 +42,8 @@ const RegisterPage = () => {
             type="text"
             placeholder="Full Name"
             required
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
@@ -35,6 +55,8 @@ const RegisterPage = () => {
             type="email"
             placeholder="Email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
@@ -46,6 +68,8 @@ const RegisterPage = () => {
             type="password"
             placeholder="Password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
@@ -59,8 +83,9 @@ const RegisterPage = () => {
                        font-semibold text-base py-3 rounded-full 
                        shadow-[0_8px_22px_rgba(0,0,0,0.25)] 
                        transition-all hover:bg-slate-50 hover:scale-[1.04]"
+            disabled={registerMutation.isLoading}
           >
-            Sign Up
+            {registerMutation.isLoading ? 'Signing Up...' : 'Sign Up'}
           </button>
 
           <Link to="/login">
