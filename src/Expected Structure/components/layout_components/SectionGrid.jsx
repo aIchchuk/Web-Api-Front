@@ -1,13 +1,10 @@
 import React from "react";
 import SectionGridSkeleton from "./skeleton/SectionGridSkeleton";
+import PlayButton from "./PlayButton";
 
 const SectionGrid = ({ song = [], title, isLoading }) => {
   if (isLoading) return <SectionGridSkeleton/>;
 
-  const handlePlay = (song) => {
-    alert(`Play: ${song.songName} by ${song.artistName}`);
-    // Add your real play logic here
-  };
 
   return (
     <div className="mb-8">
@@ -37,16 +34,10 @@ const SectionGrid = ({ song = [], title, isLoading }) => {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <button
-                onClick={() => handlePlay(song)}
-                className="absolute right-2 bottom-2 bg-green-500 hover:bg-green-600 text-white rounded-full p-2 focus:outline-none"
-                aria-label={`Play ${song.songName}`}
-              >
-                ▶️
-              </button>
+              <PlayButton song={song}></PlayButton>
             </div>
             <h3 className="font-medium mb-2 truncate">{song.songName}</h3>
-            <p className="text-sm text-zinc-400 truncate">{song.artistName}</p>
+            <p className="text-sm text-neutral-400 truncate">{song.artistName}</p>
           </div>
         ))}
       </div>

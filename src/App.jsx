@@ -5,6 +5,8 @@ import MainLayout from './Expected Structure/layouts/MainLayout';
 import HomePage from './Expected Structure/pages/HomePage';
 import AlbumPage from './Expected Structure/pages/AlbumPage';
 import Player from './Expected Structure/components/layout_components/Player';
+import LoginPage from './Expected Structure/pages/LoginPage';
+import RegisterPage from './Expected Structure/pages/RegisterPage';
 // other imports...
 
 const App = () => (
@@ -16,6 +18,9 @@ const App = () => (
           <Route path="/album/:albumId" element={<AlbumPage />} />
           {/* other routes */}
         </Route>
+
+        <Route path='/login' element={<LoginPage />}></Route>
+        <Route path='/register' element={<RegisterPage />}></Route>
       </Routes>
 
       {/* Player placed here so it’s always available */}

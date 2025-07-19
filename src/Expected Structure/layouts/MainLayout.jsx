@@ -5,10 +5,11 @@ import Searchbar from '../components/layout_components/SearchBar'
 import ChatPanel from '../components/layout_components/ChatPanel'
 import Player from '../components/layout_components/Player'
 import Friends from '../components/layout_components/Friends'
+import MusicPlayer from '../components/layout_components/MusicPlayer'
 
 export default function MainLayout() {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black text-white">
+    <div className="relative h-screen w-full overflow-hidden bg-black text-white" >
       {/* Top Search Bar */}
       <Searchbar />
 
@@ -40,7 +41,7 @@ export default function MainLayout() {
       </div>
 
       {/* Bottom Player */}
-      <Player />
+      <MusicPlayer />
     </div>
   )
 }

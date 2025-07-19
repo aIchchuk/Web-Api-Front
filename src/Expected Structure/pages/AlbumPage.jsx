@@ -43,7 +43,7 @@ const AlbumPage = () => {
             />
             <div className="flex flex-col justify-end">
               <p className="text-sm font-medium text-pink-300">Album</p>
-              <h1 className="text-7xl font-bold my-4 text-white">{currentAlbum.albumName}</h1>
+              <h1 className="text-5xl font-bold my-4 text-white">{currentAlbum.albumName}</h1>
               <div className="flex items-center gap-2 text-sm text-zinc-100">
                 <span className="font-medium text-white">{currentAlbum.artistName}</span>
                 <span>• {currentAlbum.song?.length || 0} songs</span>
@@ -53,7 +53,7 @@ const AlbumPage = () => {
               <div className="mt-4">
                 <button
                   onClick={handlePlayAlbum}
-                  className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 hover:scale-105 transition-all flex items-center justify-center"
+                  className="w-14 h-14 rounded-lg bg-pink-500 hover:bg-pink-400 hover:scale-105 transition-all flex items-center justify-center"
                   aria-label={isAlbumPlaying ? 'Pause album' : 'Play album'}
                 >
                   {isAlbumPlaying ? (
@@ -87,7 +87,7 @@ const AlbumPage = () => {
                     >
                       <div className="flex items-center justify-center">
                         {isCurrentSong && isPlaying ? (
-                          <div className="size-4 text-green-500">♫</div>
+                          <div className="size-4 text-pink-400">♫</div>
                         ) : (
                           <span className="group-hover:hidden">{index + 1}</span>
                         )}
