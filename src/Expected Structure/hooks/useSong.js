@@ -3,26 +3,32 @@ import toast from "react-hot-toast";
 import {
   getAllSongs,
   getSongById,
+  getFeaturedSong,
+  getMadeForYouSong,
+  getTrendingSong,
   createSongRequest,
   updateSongRequest,
   deleteSongRequest,
 } from "../services/songService";
 
 export const useSong = () => {
-  const [songs, setSongs] = useState([]);
+  const [song, setSong] = useState([]); // previously: songs
   const [currentSong, setCurrentSong] = useState(null);
+  const [featuredSong, setFeaturedSong] = useState([]); // previously: featuredSongs
+  const [madeForYouSong, setMadeForYouSong] = useState([]); // previously: madeForYouSongs
+  const [trendingSong, setTrendingSong] = useState([]); // previously: trendingSongs
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchAllSongs = async () => {
+  const fetchAllSong = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const data = await getAllSongs();
-      setSongs(data);
+      setSong(data);
     } catch (err) {
       setError(err.message);
-      toast.error("Failed to load songs");
+      toast.error("Failed to load song");
     } finally {
       setIsLoading(false);
     }
@@ -41,12 +47,42 @@ export const useSong = () => {
     }
   };
 
+  const fetchFeaturedSong = async () => {
+    try {
+      const data = await getFeaturedSong();
+      setFeaturedSong(data);
+    } catch (err) {
+      setError(err.message);
+      toast.error("Failed to load featured song");
+    }
+  };
+
+  const fetchMadeForYouSong = async () => {
+    try {
+      const data = await getMadeForYouSong();
+      setMadeForYouSong(data);
+    } catch (err) {
+      setError(err.message);
+      toast.error("Failed to load made-for-you song");
+    }
+  };
+
+  const fetchTrendingSong = async () => {
+    try {
+      const data = await getTrendingSong();
+      setTrendingSong(data);
+    } catch (err) {
+      setError(err.message);
+      toast.error("Failed to load trending song");
+    }
+  };
+
   const createSong = async (songData) => {
     setIsLoading(true);
     try {
       await createSongRequest(songData);
       toast.success("Song created successfully");
-      fetchAllSongs();
+      fetchAllSong();
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to create song");
     } finally {
@@ -59,7 +95,7 @@ export const useSong = () => {
     try {
       await updateSongRequest(id, payload);
       toast.success("Song updated");
-      fetchAllSongs();
+      fetchAllSong();
     } catch (err) {
       toast.error("Failed to update song");
       setError(err.message);
@@ -73,7 +109,7 @@ export const useSong = () => {
     try {
       await deleteSongRequest(id);
       toast.success("Song deleted");
-      setSongs((prev) => prev.filter((song) => song._id !== id));
+      setSong((prev) => prev.filter((s) => s._id !== id));
     } catch (err) {
       toast.error("Failed to delete song");
       setError(err.message);
@@ -83,12 +119,18 @@ export const useSong = () => {
   };
 
   return {
-    songs,
+    song,
     currentSong,
+    featuredSong,
+    madeForYouSong,
+    trendingSong,
     isLoading,
     error,
-    fetchAllSongs,
+    fetchAllSong,
     fetchSongById,
+    fetchFeaturedSong,
+    fetchMadeForYouSong,
+    fetchTrendingSong,
     createSong,
     updateSong,
     deleteSong,

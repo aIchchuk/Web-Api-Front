@@ -1,39 +1,27 @@
-import React from 'react'
-import Player from './Expected Structure/components/layout_components/Player'
-import Searchbar from './Expected Structure/components/layout_components/SearchBar'
-import TextButton from './Expected Structure/components/TextButton'
-import { Routes, Route } from 'react-router-dom'
-import HomePage from './Expected Structure/pages/HomePage'
-import MainLayout from './Expected Structure/layouts/MainLayout'
-import ChatPanel from './Expected Structure/components/layout_components/ChatPanel'
-import AlbumPage from './Expected Structure/pages/AlbumPage'
-import LoginPage from './Expected Structure/pages/LoginPage'
-import RegisterPage from './Expected Structure/pages/RegisterPage'
+import React from 'react';
+import { PlayerProvider } from './Expected Structure/context/PlayerContext';
+import { Route, Routes } from 'react-router-dom';
+import MainLayout from './Expected Structure/layouts/MainLayout';
+import HomePage from './Expected Structure/pages/HomePage';
+import AlbumPage from './Expected Structure/pages/AlbumPage';
+import Player from './Expected Structure/components/layout_components/Player';
+// other imports...
 
-const App = () => {
-  return (
-    <div className = ' h-screen bg-black '>
-
+const App = () => (
+  <PlayerProvider>
+    <div className="h-screen bg-black">
       <Routes>
-        <Route element = {<MainLayout/>}>
-
-          <Route path = '/' element = {<HomePage/>}></Route>
-          <Route path = '/chat' element = {<ChatPanel/>}></Route>
-          <Route path = '/album/:albumId' element = {<AlbumPage/>}></Route>
-  
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/album/:albumId" element={<AlbumPage />} />
+          {/* other routes */}
         </Route>
-        <Route path = '/login' element = {<LoginPage/>} ></Route>
-        <Route path = '/register' element = {<RegisterPage/>} ></Route>
       </Routes>
 
-      {/* <Searchbar></Searchbar>
-
-      <Player></Player> */}
-
-      {/* <MainLayout></MainLayout> */}
-
+      {/* Player placed here so it’s always available */}
+      <Player />
     </div>
-  )
-}
+  </PlayerProvider>
+);
 
-export default App
+export default App;

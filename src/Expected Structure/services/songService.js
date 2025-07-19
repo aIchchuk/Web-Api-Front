@@ -1,5 +1,6 @@
 import { axiosInstance } from "../api/api";
 
+// ✅ Updated to match singular route
 export const getAllSongs = async () => {
   const res = await axiosInstance.get("/song/getAllSong");
   return res.data?.data || [];
@@ -8,6 +9,21 @@ export const getAllSongs = async () => {
 export const getSongById = async (id) => {
   const res = await axiosInstance.get(`/song/getSongById/${id}`);
   return res.data?.data || null;
+};
+
+export const getFeaturedSong = async () => {
+  const res = await axiosInstance.get("/song/featuredSong");
+  return res.data?.data || [];
+};
+
+export const getMadeForYouSong = async () => {
+  const res = await axiosInstance.get("/song/madeForYouSong");
+  return res.data?.data || [];
+};
+
+export const getTrendingSong = async () => {
+  const res = await axiosInstance.get("/song/trendingSong");
+  return res.data?.data || [];
 };
 
 export const createSongRequest = async ({
