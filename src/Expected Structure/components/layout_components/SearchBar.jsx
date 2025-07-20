@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaSearch } from 'react-icons/fa';
-// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthProvider';
 
 const Searchbar = () => {
-//   const navigate = useNavigate();
+  const { isAdmin, user } = useContext(AuthContext);
 
   return (
     <div className="fixed top-0 left-0 right-0 mt-4 mb-4 z-[200] flex justify-center backdrop-blur-md">
@@ -16,21 +17,23 @@ const Searchbar = () => {
         />
       </div>
 
-      {/* <div className="absolute right-8 flex items-center gap-3 mr-20">
-        <div className="w-[38px] h-[38px] bg-gray-500 rounded-full overflow-hidden border-2 border-white">
-          <img
-            src="/path-to-profile.jpg"
-            alt="Profile"
-            className="w-full h-full object-cover block"
-          />
-        </div>
-        <button
-          onClick={() => navigate('/my-account')}
-          className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-black hover:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all"
-        >
-          My Account
-        </button>
-      </div> */}
+      <div className="absolute right-10 flex items-center gap-3 mr-20">
+        {isAdmin ? (
+          <Link
+            to="/admin"
+            className="px-4 py-2 rounded-full text-sm font-medium bg-white text-black hover:bg-neutral-800 hover:text-white hover:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all"
+          >
+            Admin Panel
+          </Link>
+        ) : user ? (
+          <Link
+            to={`/user/${user.id}`}
+            className="px-4 py-2 rounded-full text-sm font-medium bg-white text-black hover:bg-neutral-800 hover:text-white hover:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all"
+          >
+            My Account
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 };

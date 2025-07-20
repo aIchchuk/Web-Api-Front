@@ -53,7 +53,7 @@ const AlbumPage = () => {
               <div className="mt-4">
                 <button
                   onClick={handlePlayAlbum}
-                  className="w-14 h-14 rounded-lg bg-pink-500 hover:bg-pink-400 hover:scale-105 transition-all flex items-center justify-center"
+                  className="w-14 h-14 rounded-full bg-pink-500 hover:bg-pink-400 hover:scale-105 transition-all flex items-center justify-center"
                   aria-label={isAlbumPlaying ? 'Pause album' : 'Play album'}
                 >
                   {isAlbumPlaying ? (

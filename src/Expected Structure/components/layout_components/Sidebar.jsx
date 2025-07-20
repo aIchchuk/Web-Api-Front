@@ -18,11 +18,11 @@ const Sidebar = () => {
     <div className="h-full flex flex-col">
       {/* Navigation */}
       <div className="rounded-md w-full mb-3 border-t">
-        <Link to="/" className="flex items-center gap-4 px-3 py-3 text-sm text-white hover:bg-zinc-800">
+        <Link to="/" className="flex items-center gap-4 px-3 py-3 mb-2 text-sm hover:rounded-md text-white hover:bg-zinc-800">
           <HomeIcon className="size-5" />
           <span className="hidden md:inline">Home</span>
         </Link>
-        <Link to="/chat" className="flex items-center gap-4 px-3 py-3 text-sm text-white hover:bg-zinc-800">
+        <Link to="/chat" className="flex items-center gap-4 px-3 py-3 mt-2 text-sm hover:rounded-md text-white hover:bg-zinc-800">
           <MessageCircleIcon className="size-5" />
           <span className="hidden md:inline">Messages</span>
         </Link>
@@ -30,7 +30,7 @@ const Sidebar = () => {
 
       {/* Playlists // LATER NEED TO DO FOR PLAYLISTS */}
       
-      <div className="rounded-md w-full border-t mt-3">
+      <div className="rounded-md w-full border-t mt-2">
         <div className="flex items-center gap-4 px-3 py-2 mb-2 text-lg text-white">
           <Library className="size-6" />
           <span className="hidden md:inline">Albums</span>
