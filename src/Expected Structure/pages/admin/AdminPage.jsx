@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthProvider";
-import { Music, Album } from "lucide-react";
-import DashboardStat from "./DashboardStat";
+import { Music, Album, User } from "lucide-react";
+import DashboardStat from "../../components/layout_components/DashboardStat";
 import Header from "../../components/layout_components/Header";
 import SongTabContent from "./SongTabContent";
 import AlbumTabContent from "./AlbumTabContent";
+import UserTabContent from "./UserTabContent";
 
 const AdminPage = () => {
   const { isAdmin } = useContext(AuthContext);
@@ -14,48 +15,69 @@ const AdminPage = () => {
 
   // Replace with real fetch calls or useEffect if needed
   useEffect(() => {
-    // Fetch songs, albums, stats if required
+    
   }, []);
 
   if (!isAdmin) return <Navigate to="/" replace />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-white p-8">
-      <Header />
+    <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-white p-9 flex flex-col gap-5">
+      <div >
+        <div className="h-[100px] p-4 pr-8 pl-8 mb-4 bg-neutral-900 rounded-2xl ">
+          <Header />
+        </div>
+        
+        <div className=" h-[550px] p-5 mt-4 bg-neutral-900 rounded-2xl ">
+          <DashboardStat />
 
-      <DashboardStat />
+          {/* Tabs Navigation */}
+          <div className="flex space-x-4 bg-zinc-800 rounded-md p-1 w-fit mt-8">
+            <button
+              className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
+                activeTab === "song"
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+              onClick={() => setActiveTab("song")}
+            >
+              <Music className="w-4 h-4 mr-2" />
+              Songs
+            </button>
+            <button
+              className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
+                activeTab === "album"
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+              onClick={() => setActiveTab("album")}
+            >
+              <Album className="w-4 h-4 mr-2" />
+              Albums
+            </button>
+            <button
+              className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
+                activeTab === "user"
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+              onClick={() => setActiveTab("user")}
+            >
+              <User className="w-4 h-4 mr-2" />
+              Users
+            </button>
+          </div>
 
-      {/* Tabs Navigation */}
-      <div className="flex space-x-4 bg-zinc-800 rounded-md p-1 w-fit mt-8">
-        <button
-          className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
-            activeTab === "songs"
-              ? "bg-zinc-700 text-white"
-              : "text-zinc-400 hover:text-white"
-          }`}
-          onClick={() => setActiveTab("songs")}
-        >
-          <Music className="w-4 h-4 mr-2" />
-          Songs
-        </button>
-        <button
-          className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
-            activeTab === "albums"
-              ? "bg-zinc-700 text-white"
-              : "text-zinc-400 hover:text-white"
-          }`}
-          onClick={() => setActiveTab("albums")}
-        >
-          <Album className="w-4 h-4 mr-2" />
-          Albums
-        </button>
+          {/* Tab Content */}
+          <div className="mt-6">
+            {activeTab === "song" && <SongTabContent />}
+            {activeTab === "album" && <AlbumTabContent/>}
+            {activeTab === "user" && <UserTabContent/>}
+          </div>
+        </div>
+
+
       </div>
 
-      {/* Tab Content */}
-      <div className="mt-6">
-        {activeTab === "songs" && <SongTabContent />}
-        {activeTab === "albums" && <AlbumTabContent/>}
-      </div>
     </div>
   );
 };
