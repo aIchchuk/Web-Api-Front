@@ -9,7 +9,7 @@ const Header = () => {
     <div className="flex items-center justify-between mb-8 ">
       <div className="flex items-center justify-center gap-2">
         <Link to="/" className="rounded-lg mr-6">
-          <img src="/cover-images/pretty ho3.jpg" alt="Logo" className="size-15 rounded-full hover:size-16" />
+          <img src="/cover-images/11.jpg" alt="Logo" className="size-15 rounded-full hover:size-16" />
         </Link>
         <div>
           <h1 className="text-3xl font-bold">Music Manager</h1>

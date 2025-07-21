@@ -3,7 +3,7 @@ import { usePlayer } from '../../hooks/usePlayer';
 
 const Player = () => {
   const audioRef = useRef(null);
-  const prevSongRef = useRef(null);
+  const prevUrlRef = useRef(null);
 
   const {
     currentSong,
@@ -11,20 +11,21 @@ const Player = () => {
     playNext,
   } = usePlayer();
 
-  // Play / pause audio
+  // Play or pause based on isPlaying
   useEffect(() => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
     if (isPlaying) {
-      audioRef.current.play().catch(err => {
+      audio.play().catch(err => {
         console.error('Playback failed:', err);
       });
     } else {
-      audioRef.current.pause();
+      audio.pause();
     }
   }, [isPlaying]);
 
-  // On audio ended, play next song
+  // Play next when current audio ends
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -39,17 +40,21 @@ const Player = () => {
     };
   }, [playNext]);
 
-  // Change audio source when song changes
+  // Change source when currentSong changes
   useEffect(() => {
     if (!audioRef.current || !currentSong) return;
 
     const audio = audioRef.current;
-    const isSongChange = prevSongRef.current !== currentSong.audioUrl;
+    const url = currentSong.audioUrl || currentSong.audioFile;
+
+    if (!url) return;
+
+    const isSongChange = prevUrlRef.current !== url;
 
     if (isSongChange) {
-      audio.src = currentSong.audioUrl;
+      audio.src = url;
       audio.currentTime = 0;
-      prevSongRef.current = currentSong.audioUrl;
+      prevUrlRef.current = url;
 
       if (isPlaying) {
         audio.play().catch(err => console.error('Playback error:', err));

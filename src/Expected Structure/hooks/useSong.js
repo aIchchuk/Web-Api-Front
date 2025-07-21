@@ -6,10 +6,11 @@ import {
   getFeaturedSong,
   getMadeForYouSong,
   getTrendingSong,
-  createSongRequest,
+  
   updateSongRequest,
   deleteSongRequest,
 } from "../services/songService";
+import { axiosInstance } from "../api/api";
 
 export const useSong = () => {
   const [song, setSong] = useState([]); // array of songs, named 'song'
@@ -90,19 +91,22 @@ export const useSong = () => {
     }
   };
 
-  const createSong = async (songData) => {
+  const createSong = async (formData) => {
     setIsLoading(true);
     setError(null);
     try {
-      await createSongRequest(songData);
+      // ✅ This function is now directly sending FormData
+      await axiosInstance.post("/song/createSong", formData);
       toast.success("Song created successfully");
       await fetchAllSong();
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to create song");
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const updateSong = async (id, payload) => {
     setIsLoading(true);
@@ -125,7 +129,7 @@ export const useSong = () => {
     try {
       await deleteSongRequest(id);
       toast.success("Song deleted");
-      setSong((prev) => prev.filter((s) => s._id !== id));
+      setSong((prev) => prev.filter((song) => song._id !== id));
     } catch (err) {
       toast.error("Failed to delete song");
       setError(err.message);
