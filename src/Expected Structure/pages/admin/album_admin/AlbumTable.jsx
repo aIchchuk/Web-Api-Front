@@ -3,7 +3,7 @@ import { Calendar, Trash2 } from "lucide-react";
 import { useAlbum } from "../../../hooks/useAlbum";
 
 const AlbumTable = () => {
-  const { album, isLoading, error, fetchAllAlbum, deleteAlbum } = useAlbum();
+  const { album, isLoading, error, deleteAlbum, fetchAllAlbum } = useAlbum();
 
   useEffect(() => {
     fetchAllAlbum();
@@ -31,28 +31,50 @@ const AlbumTable = () => {
         <thead className="bg-zinc-800 sticky top-0 z-10">
           <tr>
             <th className="w-[50px] p-2 text-left"></th>
-            <th className="p-2 text-left">Album Title</th>
+            <th className="p-2 text-left">Album Name</th>
             <th className="p-2 text-left">Artist</th>
-            <th className="p-2 text-left">Created At</th>
+            <th className="p-2 text-left">Files</th>
+            <th className="p-2 text-left">Release Date</th>
             <th className="p-2 text-right">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           {album.map((albumItem) => (
             <tr key={albumItem._id} className="hover:bg-zinc-800/50">
+              {/* Cover Image */}
               <td className="p-2">
                 <img
-                  src={albumItem.albumImageUrl || albumItem.albumImage || "/placeholder-image.png"}
+                  src={
+                    albumItem.albumImageUrl ||
+                    albumItem.albumImage ||
+                    "/placeholder-image.png"
+                  }
                   alt={albumItem.albumName}
                   className="w-10 h-10 rounded object-cover"
                 />
               </td>
+
+              {/* Album Name */}
               <td className="p-2 font-medium">{albumItem.albumName}</td>
-              <td className="p-2">{albumItem.artistName || "Unknown Artist"}</td>
-              <td className="p-2 text-zinc-400 flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {new Date(albumItem.createdAt).toISOString().split("T")[0]}
+
+              {/* Artist Name */}
+              <td className="p-2">{albumItem.artistName}</td>
+
+              {/* File Info */}
+              <td className="p-2 text-sm text-zinc-400">
+                <div>{albumItem.originalImageFileName || "N/A"}</div>
               </td>
+
+              {/* Release Date */}
+              <td className="p-2 text-zinc-400">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(albumItem.createdAt).toISOString().split("T")[0]}
+                </div>
+              </td>
+
+              {/* Delete */}
               <td className="p-2 text-right">
                 <button
                   onClick={() => deleteAlbum(albumItem._id)}

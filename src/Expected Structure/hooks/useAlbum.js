@@ -7,6 +7,8 @@ import {
   deleteAlbumById as apiDeleteAlbumById 
 } from "../services/albumService";
 
+import { axiosInstance } from "../api/api";
+
 export const useAlbum = () => {
   const [album, setAlbum] = useState([]);
   const [currentAlbum, setCurrentAlbum] = useState(null);
@@ -44,6 +46,24 @@ export const useAlbum = () => {
 
   const findAlbumById = (albumId) =>
     album.find((albumItem) => albumItem._id === albumId) || null;
+
+
+
+  const createAlbum = async (formData) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      // ✅ This function is now directly sending FormData
+      await axiosInstance.post("/album/createAlbum", formData);
+      toast.success("Album created successfully");
+      await fetchAllAlbum();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to create Album");
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // New: Update album by ID
   const updateAlbumById = async (albumId, updateData) => {
@@ -92,6 +112,7 @@ export const useAlbum = () => {
     fetchAllAlbum,
     fetchAlbumById,
     findAlbumById,
+    createAlbum,
     updateAlbumById,
     deleteAlbum,
   };
