@@ -4,6 +4,9 @@ import DashboardStat from '../../components/layout_components/DashboardStat'
 import { AuthContext } from '../../auth/AuthProvider'
 import { useState, useEffect } from 'react'
 import { Music, Album, User } from "lucide-react";
+import UserSongTabContent from './my_songs/UserSongTabContent'
+import UserAlbumTabContent from './my_albums/UserAlbumTabContent'
+import MyDataTabContent from './my_data/MyDataTabContent'
 
 
 
@@ -41,7 +44,7 @@ const UserPage = () => {
                   onClick={() => setActiveTab("song")}
                 >
                   <Music className="w-4 h-4 mr-2" />
-                  Songs
+                  My Songs
                 </button>
                 <button
                   className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
@@ -52,7 +55,7 @@ const UserPage = () => {
                   onClick={() => setActiveTab("album")}
                 >
                   <Album className="w-4 h-4 mr-2" />
-                  Albums
+                  My Albums
                 </button>
                 <button
                   className={`flex items-center px-4 py-2 rounded-md text-sm transition-colors ${
@@ -63,15 +66,15 @@ const UserPage = () => {
                   onClick={() => setActiveTab("user")}
                 >
                   <User className="w-4 h-4 mr-2" />
-                  Users
+                  My Data
                 </button>
               </div>
 
               {/* Tab Content */}
               <div className="mt-4">
-                {activeTab === "song" && <SongTabContent />}
-                {activeTab === "album" && <AlbumTabContent/>}
-                {activeTab === "user" && <UserTabContent/>}
+                {activeTab === "song" && <UserSongTabContent />}
+                {activeTab === "album" && <UserAlbumTabContent/>}
+                {activeTab === "user" && <MyDataTabContent/>}
               </div>
             </div>
           </div>
