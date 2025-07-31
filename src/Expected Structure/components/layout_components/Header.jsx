@@ -21,7 +21,7 @@ const Header = () => {
         <span className="text-sm text-zinc-300">
           {user?.fullName || "Admin"}
         </span>
-        <Link to = '/login'
+        <Link to = '/landingPage'
           className="text-sm bg-zinc-700 px-3 py-1 rounded hover:bg-zinc-600"
         >
           Logout

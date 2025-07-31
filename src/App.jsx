@@ -10,6 +10,7 @@ import RegisterPage from './Expected Structure/pages/RegisterPage';
 import AdminPage from './Expected Structure/pages/admin/AdminPage';
 import UserPage from './Expected Structure/pages/user/UserPage';
 import SearchResults from './Expected Structure/components/layout_components/SearchResult';
+import LandingPage from './Expected Structure/pages/LandingPage';
 
 // other imports...
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path= '/admin' element={<AdminPage />} ></Route>
           <Route path= '/user/:userId' element={<UserPage/>}></Route>
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/landingPage" element={<LandingPage />} />
 
         </Routes>
 

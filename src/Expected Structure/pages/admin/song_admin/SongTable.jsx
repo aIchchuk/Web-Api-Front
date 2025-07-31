@@ -91,7 +91,12 @@ const SongTable = () => {
               {/* Delete Action */}
               <td className="p-2 text-right">
                 <button
-                  onClick={() => deleteSong(song._id)}
+                  onClick={() => {
+                    const confirmDelete = window.confirm(`Are you sure you want to delete "${song.songName}"?`);
+                    if (confirmDelete) {
+                      deleteSong(song._id);
+                    }
+                  }}
                   className="text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded p-1"
                   aria-label={`Delete ${song.songName}`}
                   type="button"
@@ -99,6 +104,7 @@ const SongTable = () => {
                   <Trash2 className="w-4 h-4" />
                 </button>
               </td>
+
             </tr>
           ))}
         </tbody>

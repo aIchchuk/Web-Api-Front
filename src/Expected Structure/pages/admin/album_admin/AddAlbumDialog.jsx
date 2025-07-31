@@ -139,28 +139,31 @@ const AddAlbumDialog = () => {
             {/* Select Songs */}
             <div>
               <label className="block text-sm mb-2 font-semibold">Select Songs</label>
-              <div className="max-h-40 overflow-y-auto border border-zinc-700 rounded p-2 bg-zinc-800 [&::-webkit-scrollbar]:hidden">
-                {songs.length === 0 && (
+              <div className="max-h-40 overflow-y-auto border border-zinc-700 rounded p-2 bg-zinc-800 space-y-1 [&::-webkit-scrollbar]:hidden">
+                {songs.length === 0 ? (
                   <p className="text-sm text-zinc-400">No songs available</p>
+                ) : (
+                  songs.map((song) => {
+                    const isSelected = selectedSongIds.includes(song._id);
+                    return (
+                      <div
+                        key={song._id}
+                        onClick={() => toggleSongSelection(song._id)}
+                        className={`px-3 py-2 rounded cursor-pointer transition-all ${
+                          isSelected
+                            ? "bg-violet-600 text-white border border-violet-400"
+                            : "hover:bg-zinc-700 text-zinc-300"
+                        }`}
+                      >
+                        <span className="text-sm font-medium">{song.songName}</span>
+                        <span className="text-sm text-zinc-400 ml-2">— {song.artistName}</span>
+                      </div>
+                    );
+                  })
                 )}
-                {songs.map((song) => (
-                  <label
-                    key={song._id}
-                    className="flex items-center gap-2 mb-1 cursor-pointer select-none"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedSongIds.includes(song._id)}
-                      onChange={() => toggleSongSelection(song._id)}
-                      className="w-4 h-4"
-                    />
-                    <span>
-                      {song.songName} — {song.artistName}
-                    </span>
-                  </label>
-                ))}
               </div>
             </div>
+
 
             {/* Actions */}
             <div className="flex justify-end gap-2 pt-4">

@@ -77,13 +77,19 @@ const AlbumTable = () => {
               {/* Delete */}
               <td className="p-2 text-right">
                 <button
-                  onClick={() => deleteAlbum(albumItem._id)}
+                  onClick={() => {
+                    const confirmDelete = window.confirm(`Are you sure you want to delete "${albumItem.albumName}"?`);
+                    if (confirmDelete) {
+                      deleteAlbum(albumItem._id);
+                    }
+                  }}
                   className="text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded p-1"
                   aria-label={`Delete ${albumItem.albumName}`}
                   type="button"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
+
               </td>
             </tr>
           ))}

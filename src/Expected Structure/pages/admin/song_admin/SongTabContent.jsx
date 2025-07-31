@@ -10,7 +10,7 @@ const SongTabContent = () => {
             <Music className="w-5 h-5" />
             Songs Library
           </h2>
-          <p className="text-zinc-400 text-sm">Manage your music tracks</p>
+          <p className="text-zinc-400 text-sm">Manage music tracks</p>
         </div>
         <AddSongDialog></AddSongDialog>
       </div>

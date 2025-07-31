@@ -11,7 +11,7 @@ const AlbumTabContent = () => {
             <Album className="w-5 h-5" />
             Albums Library
           </h2>
-          <p className="text-zinc-400 text-sm">Manage your album collection</p>
+          <p className="text-zinc-400 text-sm">Manage album collection</p>
         </div>
         <AddAlbumDialog/>
       </div>
