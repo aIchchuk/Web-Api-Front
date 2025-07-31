@@ -1,5 +1,7 @@
 import { axiosInstance } from "../api/api";
 
+
+
 // Get all songs
 export const getAllSongs = async () => {
   const res = await axiosInstance.get("/song/getAllSong");
@@ -75,5 +77,11 @@ export const updateSongRequest = async (id, payload) => {
 // Delete a song by ID
 export const deleteSongRequest = async (id) => {
   const res = await axiosInstance.delete(`/song/deleteSong/${id}`);
+  return res.data;
+};
+
+export const convertReelToSongRequest = async ({ reelUrl, songName, artistName, albumName }) => {
+  const payload = { reelUrl, songName, artistName, albumName };
+  const res = await axiosInstance.post("/song/convert-reel", payload);
   return res.data;
 };

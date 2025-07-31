@@ -35,6 +35,7 @@ const SongTable = () => {
             <th className="p-2 text-left">Artist</th>
             <th className="p-2 text-left">Files</th>
             <th className="p-2 text-left">Release Date</th>
+            <th className="p-2 text-left">Source</th>
             <th className="p-2 text-right">Actions</th>
           </tr>
         </thead>
@@ -59,8 +60,8 @@ const SongTable = () => {
 
               {/* Original File Names */}
               <td className="p-2 text-sm text-zinc-400">
-                <div> {song.originalImageFileName || "N/A"}</div>
-                <div> {song.originalAudioFileName || "N/A"}</div>
+                <div>{song.originalImageFileName || "N/A"}</div>
+                <div>{song.originalAudioFileName || "N/A"}</div>
               </td>
 
               {/* Release Date */}
@@ -69,6 +70,22 @@ const SongTable = () => {
                   <Calendar className="w-4 h-4" />
                   {new Date(song.createdAt).toISOString().split("T")[0]}
                 </div>
+              </td>
+
+              {/* Source (Instagram Reel URL) */}
+              <td className="p-2 text-sm text-blue-400 underline">
+                {song.sourceUrl ? (
+                  <a
+                    href={song.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-300"
+                  >
+                    Instagram Reel
+                  </a>
+                ) : (
+                  "N/A"
+                )}
               </td>
 
               {/* Delete Action */}

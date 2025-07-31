@@ -1,6 +1,7 @@
-import axios from "axios";
+import { axiosInstance } from "../api/api";
 
+// services/statService.js or similar
 export const getStatRequest = async () => {
-  const response = await axios.get("/api/stats"); // Adjust path if needed
+  const response = await axiosInstance.get("/stat");
   return response.data;
 };

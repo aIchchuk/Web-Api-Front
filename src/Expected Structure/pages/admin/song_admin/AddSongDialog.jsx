@@ -4,7 +4,7 @@ import { useSong } from "../../../hooks/useSong";
 import { Plus } from "lucide-react";
 
 const AddSongDialog = () => {
-  const { createSong } = useSong();
+  const { createSong, convertReelToSong } = useSong();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,13 +12,18 @@ const AddSongDialog = () => {
   const [form, setForm] = useState({
     songName: "",
     artistName: "",
+    albumName: "",
+    reelUrl: "",
   });
 
-  // File input state — names must match backend expectations
+  // File input state
   const [files, setFiles] = useState({
     audioFile: null,
     songImage: null,
   });
+
+  // Toggle between upload and reel url mode
+  const [useReelUrl, setUseReelUrl] = useState(false);
 
   const audioRef = useRef();
   const imageRef = useRef();
@@ -31,32 +36,57 @@ const AddSongDialog = () => {
   };
 
   const handleSubmit = async () => {
+    // Validation
     if (!form.songName || !form.artistName) {
       return toast.error("Please enter both song name and artist name.");
     }
 
-    if (!files.audioFile || !files.songImage) {
-      return toast.error("Please upload both audio and image files.");
-    }
-
-    const formData = new FormData();
-    formData.append("songName", form.songName);
-    formData.append("artistName", form.artistName);
-    formData.append("audioFile", files.audioFile);   // must match backend multer field
-    formData.append("songImage", files.songImage);   // must match backend multer field
+    setIsLoading(true);
 
     try {
-      setIsLoading(true);
-      await createSong(formData);
-      toast.success("Song added successfully!");
+      if (useReelUrl) {
+        if (!form.reelUrl) {
+          toast.error("Please enter the Instagram Reel URL.");
+          setIsLoading(false);
+          return;
+        }
 
-      // Reset and close modal
-      setForm({ songName: "", artistName: "" });
+        // Call convert reel to song
+        await convertReelToSong({
+          reelUrl: form.reelUrl,
+          songName: form.songName,
+          artistName: form.artistName,
+          albumName: form.albumName,
+        });
+
+        toast.success("Reel converted and song saved successfully!");
+      } else {
+        // Normal upload validation
+        if (!files.audioFile || !files.songImage) {
+          toast.error("Please upload both audio and image files.");
+          setIsLoading(false);
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("songName", form.songName);
+        formData.append("artistName", form.artistName);
+        if (form.albumName) formData.append("albumName", form.albumName);
+        formData.append("audioFile", files.audioFile);
+        formData.append("songImage", files.songImage);
+
+        await createSong(formData);
+
+        toast.success("Song added successfully!");
+      }
+
+      // Reset form and files
+      setForm({ songName: "", artistName: "", albumName: "", reelUrl: "" });
       setFiles({ audioFile: null, songImage: null });
       setIsOpen(false);
     } catch (err) {
-      console.error("Error creating song:", err);
-      toast.error("Failed to add song.");
+      console.error("Error adding song:", err);
+      toast.error(err?.message || "Failed to add song.");
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +109,20 @@ const AddSongDialog = () => {
           <div className="bg-zinc-900 text-white p-6 rounded-lg w-full max-w-md shadow-xl space-y-5">
             <h2 className="text-xl font-semibold">Add New Song</h2>
 
-            {/* Song Name */}
+            {/* Toggle Upload or Reel */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="toggleReel"
+                checked={useReelUrl}
+                onChange={() => setUseReelUrl((v) => !v)}
+              />
+              <label htmlFor="toggleReel" className="text-sm">
+                Convert from Instagram Reel URL
+              </label>
+            </div>
+
+            {/* Common fields */}
             <div className="space-y-1">
               <label className="text-sm">Song Name</label>
               <input
@@ -92,7 +135,6 @@ const AddSongDialog = () => {
               />
             </div>
 
-            {/* Artist Name */}
             <div className="space-y-1">
               <label className="text-sm">Artist Name</label>
               <input
@@ -105,43 +147,73 @@ const AddSongDialog = () => {
               />
             </div>
 
-            {/* Audio Upload */}
             <div className="space-y-1">
-              <label className="text-sm">Audio File</label>
-              <button
-                type="button"
-                onClick={() => audioRef.current?.click()}
-                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded text-left"
-              >
-                {files.audioFile ? files.audioFile.name : "Choose Audio File"}
-              </button>
+              <label className="text-sm">Album Name (optional)</label>
               <input
-                type="file"
-                accept="audio/*"
-                hidden
-                ref={audioRef}
-                onChange={(e) => handleFileChange(e, "audioFile")}
+                type="text"
+                value={form.albumName}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, albumName: e.target.value }))
+                }
+                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded focus:outline-none"
               />
             </div>
 
-            {/* Image Upload */}
-            <div className="space-y-1">
-              <label className="text-sm">Image File</label>
-              <button
-                type="button"
-                onClick={() => imageRef.current?.click()}
-                className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded text-left"
-              >
-                {files.songImage ? files.songImage.name : "Choose Image File"}
-              </button>
-              <input
-                type="file"
-                accept="image/*"
-                hidden
-                ref={imageRef}
-                onChange={(e) => handleFileChange(e, "songImage")}
-              />
-            </div>
+            {/* Conditional inputs */}
+            {useReelUrl ? (
+              <div className="space-y-1">
+                <label className="text-sm">Instagram Reel URL</label>
+                <input
+                  type="url"
+                  value={form.reelUrl}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, reelUrl: e.target.value }))
+                  }
+                  className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded focus:outline-none"
+                  placeholder="https://www.instagram.com/reel/..."
+                />
+              </div>
+            ) : (
+              <>
+                {/* Audio Upload */}
+                <div className="space-y-1">
+                  <label className="text-sm">Audio File</label>
+                  <button
+                    type="button"
+                    onClick={() => audioRef.current?.click()}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded text-left"
+                  >
+                    {files.audioFile ? files.audioFile.name : "Choose Audio File"}
+                  </button>
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    hidden
+                    ref={audioRef}
+                    onChange={(e) => handleFileChange(e, "audioFile")}
+                  />
+                </div>
+
+                {/* Image Upload */}
+                <div className="space-y-1">
+                  <label className="text-sm">Image File</label>
+                  <button
+                    type="button"
+                    onClick={() => imageRef.current?.click()}
+                    className="w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded text-left"
+                  >
+                    {files.songImage ? files.songImage.name : "Choose Image File"}
+                  </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    ref={imageRef}
+                    onChange={(e) => handleFileChange(e, "songImage")}
+                  />
+                </div>
+              </>
+            )}
 
             {/* Actions */}
             <div className="flex justify-end gap-2 pt-4">
@@ -157,7 +229,13 @@ const AddSongDialog = () => {
                 className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 rounded text-black font-medium"
                 disabled={isLoading}
               >
-                {isLoading ? "Uploading..." : "Add Song"}
+                {isLoading
+                  ? useReelUrl
+                    ? "Converting..."
+                    : "Uploading..."
+                  : useReelUrl
+                  ? "Convert Reel & Add Song"
+                  : "Add Song"}
               </button>
             </div>
           </div>

@@ -47,7 +47,7 @@ const RegisterPage = () => {
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
-                       placeholder:text-slate-400 
+                       placeholder:text-white  
                        focus:bg-white/20 transition-colors"
           />
 
@@ -60,7 +60,7 @@ const RegisterPage = () => {
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
-                       placeholder:text-slate-400 
+                       placeholder:text-white  
                        focus:bg-white/20 transition-colors"
           />
 
@@ -73,7 +73,7 @@ const RegisterPage = () => {
             className="w-full px-4 py-3.5 mb-6 rounded-full 
                        bg-white/10 text-slate-100 text-base 
                        outline-none shadow-inner shadow-black/10 
-                       placeholder:text-slate-400 
+                       placeholder:text-white  
                        focus:bg-white/20 transition-colors"
           />
 

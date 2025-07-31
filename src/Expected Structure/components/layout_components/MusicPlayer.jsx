@@ -28,10 +28,10 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
 
-  // Grab the global audio element
+  
+
   useEffect(() => {
     audioRef.current = document.querySelector("audio");
-
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -43,14 +43,16 @@ const MusicPlayer = () => {
     audio.addEventListener("loadedmetadata", updateDuration);
     audio.addEventListener("ended", handleEnded);
 
+    console.log('Now playing song:', currentSong);
+
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("ended", handleEnded);
     };
+    
   }, [currentSong, playNext]);
 
-  // Update volume
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
@@ -66,14 +68,11 @@ const MusicPlayer = () => {
   };
 
   const handleVolumeChange = (e) => {
-    const value = Number(e.target.value);
-    setVolume(value);
+    setVolume(Number(e.target.value));
   };
 
-//   if (!currentSong) return null;
-
-  // Use placeholders if no currentSong
-  const songImage = currentSong?.songImageUrl || null ; // your default image or blank
+  // Default placeholders if no currentSong
+  const songImage = currentSong?.songImageUrl || null;
   const songName = currentSong?.songName || "No song selected";
   const artistName = currentSong?.artistName || "Unknown artist";
 
@@ -81,10 +80,7 @@ const MusicPlayer = () => {
     <div className="fixed bottom-0 left-6 right-6 h-[90px] bg-[rgba(43,43,43,0.868)] rounded-t-2xl shadow-[0_-4px_20px_rgba(27,27,27,0.559)] flex items-center justify-between px-10 text-white font-medium text-base z-[150] w-auto gap-x-6 backdrop-blur-md">
       {/* Music Info */}
       <div className="flex items-center gap-4 min-w-[150px]">
-        <img
-          src={songImage}
-          className="w-12 h-12 rounded-md object-cover"
-        />
+        <img src={songImage} className="w-12 h-12 rounded-md object-cover" />
         <div className="flex flex-col justify-center">
           <p className="m-0 font-bold text-sm font-sans truncate max-w-[160px]">
             {songName}
@@ -160,4 +156,4 @@ const MusicPlayer = () => {
   );
 };
 
-export default MusicPlayer
+export default MusicPlayer;

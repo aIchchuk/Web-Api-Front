@@ -6,9 +6,10 @@ import {
   getFeaturedSong,
   getMadeForYouSong,
   getTrendingSong,
-  
   updateSongRequest,
   deleteSongRequest,
+  convertReelToSongRequest
+  
 } from "../services/songService";
 import { axiosInstance } from "../api/api";
 
@@ -21,6 +22,23 @@ export const useSong = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const convertReelToSong = async ({ reelUrl, songName, artistName, albumName }) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await convertReelToSongRequest({ reelUrl, songName, artistName, albumName });
+      toast.success("Reel converted and song saved successfully!");
+      // Optionally, refresh song list or add the new song to state
+      await fetchAllSong();
+      return res.data; // Return new song data if needed
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to convert reel");
+      setError(err.message);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const fetchAllSong = async () => {
     setIsLoading(true);
     setError(null);
@@ -154,5 +172,6 @@ export const useSong = () => {
     createSong,
     updateSong,
     deleteSong,
+    convertReelToSong,
   };
 };

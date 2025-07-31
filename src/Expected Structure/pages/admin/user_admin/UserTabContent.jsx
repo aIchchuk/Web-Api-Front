@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-// import UsersTable from "./UsersTable";
+import UserTable from "./UserTable";
 // import AddUserDialog from "./AddUserDialog";
 
 const UserTabContent = () => {
@@ -16,7 +16,7 @@ const UserTabContent = () => {
         {/* <AddUserDialog /> */}
       </div>
       <div>
-        {/* <UsersTable /> */}
+        <UserTable />
       </div>
     </div>
   );

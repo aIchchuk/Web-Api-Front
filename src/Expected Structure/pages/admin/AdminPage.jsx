@@ -6,7 +6,7 @@ import DashboardStat from "../../components/layout_components/DashboardStat";
 import Header from "../../components/layout_components/Header";
 import SongTabContent from "./song_admin/SongTabContent";
 import AlbumTabContent from "./album_admin/AlbumTabContent";
-import UserTabContent from "./UserTabContent";
+import UserTabContent from "./user_admin/UserTabContent";
 
 
 const AdminPage = () => {

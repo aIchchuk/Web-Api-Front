@@ -8,11 +8,11 @@ export const PlayerProvider = ({ children }) => {
   const [queue, setQueue] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
-  const playSong = useCallback((songs = [], startIndex = 0) => {
-    if (!songs.length || startIndex >= songs.length) return;
-    setQueue(songs);
+  const playSong = useCallback((song = [], startIndex = 0) => {
+    if (!song.length || startIndex >= song.length) return;
+    setQueue(song);
     setCurrentIndex(startIndex);
-    setCurrentSong(songs[startIndex]);
+    setCurrentSong(song[startIndex]);
     setIsPlaying(true);
   }, []);
 

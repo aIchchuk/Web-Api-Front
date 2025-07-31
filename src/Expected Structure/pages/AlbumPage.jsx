@@ -37,7 +37,7 @@ const AlbumPage = () => {
         <div className="relative z-10 min-h-full">
           <div className="flex p-6 gap-6 pb-8">
             <img
-              src={currentAlbum.albumImageUrl}
+              src={currentAlbum.albumImageUrl || currentAlbum.albumImage}
               alt={currentAlbum.albumName}
               className="w-[240px] h-[240px] shadow-xl rounded"
             />

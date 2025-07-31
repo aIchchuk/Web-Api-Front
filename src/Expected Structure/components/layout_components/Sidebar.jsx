@@ -47,7 +47,7 @@ const Sidebar = () => {
                   className="flex items-center gap-3 p-2 hover:bg-zinc-800 rounded-md"
                 >
                   <img
-                    src={album.albumImageUrl}
+                    src={album.albumImageUrl || album.albumImage}
                     alt={album.albumName}
                     className="w-12 h-12 object-cover rounded-md"
                   />
