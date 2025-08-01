@@ -1,6 +1,5 @@
+// songService.js
 import { axiosInstance } from "../api/api";
-
-
 
 // Get all songs
 export const getAllSongs = async () => {
@@ -33,30 +32,11 @@ export const getTrendingSong = async () => {
 };
 
 // Create a new song (with image + audio upload)
-export const createSongRequest = async ({
-  songName,
-  artistName,
-  albumName,
-  songImage,
-  audioFile,
-  songImageUrl,
-  audioUrl,
-}) => {
-  const formData = new FormData();
-  formData.append("songName", songName);
-  formData.append("artistName", artistName);
-  if (albumName) formData.append("albumName", albumName);
-  if (songImage) formData.append("songImage", songImage);
-  if (audioFile) formData.append("audioFile", audioFile);
-  if (songImageUrl) formData.append("songImageUrl", songImageUrl);
-  if (audioUrl) formData.append("audioUrl", audioUrl);
-
-  // ✅ Let axios set Content-Type automatically
+export const createSongRequest = async (formData) => {
+  // formData is a FormData object
   const res = await axiosInstance.post("/song/createSong", formData);
-
   return res.data;
 };
-
 
 // Update a song by ID (payload can be JSON or FormData)
 export const updateSongRequest = async (id, payload) => {
@@ -80,6 +60,7 @@ export const deleteSongRequest = async (id) => {
   return res.data;
 };
 
+// Convert Instagram Reel URL to song
 export const convertReelToSongRequest = async ({ reelUrl, songName, artistName, albumName }) => {
   const payload = { reelUrl, songName, artistName, albumName };
   const res = await axiosInstance.post("/song/convert-reel", payload);

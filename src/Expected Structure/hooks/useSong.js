@@ -1,3 +1,4 @@
+// useSong.js
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -6,19 +7,18 @@ import {
   getFeaturedSong,
   getMadeForYouSong,
   getTrendingSong,
+  createSongRequest,
   updateSongRequest,
   deleteSongRequest,
-  convertReelToSongRequest
-  
+  convertReelToSongRequest,
 } from "../services/songService";
-import { axiosInstance } from "../api/api";
 
 export const useSong = () => {
-  const [song, setSong] = useState([]); // array of songs, named 'song'
+  const [songs, setSongs] = useState([]); // plural: array of songs
   const [currentSong, setCurrentSong] = useState(null);
-  const [featuredSong, setFeaturedSong] = useState([]);
-  const [madeForYouSong, setMadeForYouSong] = useState([]);
-  const [trendingSong, setTrendingSong] = useState([]);
+  const [featuredSong, setFeaturedSongs] = useState([]);
+  const [madeForYouSong, setMadeForYouSongs] = useState([]);
+  const [trendingSong, setTrendingSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,26 +28,28 @@ export const useSong = () => {
     try {
       const res = await convertReelToSongRequest({ reelUrl, songName, artistName, albumName });
       toast.success("Reel converted and song saved successfully!");
-      // Optionally, refresh song list or add the new song to state
       await fetchAllSong();
-      return res.data; // Return new song data if needed
+      return res;
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to convert reel");
-      setError(err.message);
+      const msg = err?.response?.data?.message || err.message || "Failed to convert reel";
+      toast.error(msg);
+      setError(msg);
       return null;
     } finally {
       setIsLoading(false);
     }
   };
+
   const fetchAllSong = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const data = await getAllSongs();
-      setSong(data);
+      setSongs(data);
     } catch (err) {
-      setError(err.message);
-      toast.error("Failed to load songs");
+      const msg = err?.response?.data?.message || err.message || "Failed to load songs";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -60,8 +62,9 @@ export const useSong = () => {
       const data = await getSongById(id);
       setCurrentSong(data);
     } catch (err) {
-      setError(err.message);
-      toast.error("Failed to fetch song");
+      const msg = err?.response?.data?.message || err.message || "Failed to fetch song";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +75,11 @@ export const useSong = () => {
     setError(null);
     try {
       const data = await getFeaturedSong();
-      setFeaturedSong(data);
+      setFeaturedSongs(data);
     } catch (err) {
-      setError(err.message);
-      toast.error("Failed to load featured songs");
+      const msg = err?.response?.data?.message || err.message || "Failed to load featured songs";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -86,10 +90,11 @@ export const useSong = () => {
     setError(null);
     try {
       const data = await getMadeForYouSong();
-      setMadeForYouSong(data);
+      setMadeForYouSongs(data);
     } catch (err) {
-      setError(err.message);
-      toast.error("Failed to load made-for-you songs");
+      const msg = err?.response?.data?.message || err.message || "Failed to load made-for-you songs";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -100,10 +105,11 @@ export const useSong = () => {
     setError(null);
     try {
       const data = await getTrendingSong();
-      setTrendingSong(data);
+      setTrendingSongs(data);
     } catch (err) {
-      setError(err.message);
-      toast.error("Failed to load trending songs");
+      const msg = err?.response?.data?.message || err.message || "Failed to load trending songs";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -113,18 +119,17 @@ export const useSong = () => {
     setIsLoading(true);
     setError(null);
     try {
-      // ✅ This function is now directly sending FormData
-      await axiosInstance.post("/song/createSong", formData);
+      await createSongRequest(formData);
       toast.success("Song created successfully");
       await fetchAllSong();
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to create song");
-      setError(err.message);
+      const msg = err?.response?.data?.message || err.message || "Failed to create song";
+      toast.error(msg);
+      setError(msg);
     } finally {
       setIsLoading(false);
     }
   };
-
 
   const updateSong = async (id, payload) => {
     setIsLoading(true);
@@ -134,8 +139,9 @@ export const useSong = () => {
       toast.success("Song updated");
       await fetchAllSong();
     } catch (err) {
-      toast.error("Failed to update song");
-      setError(err.message);
+      const msg = err?.response?.data?.message || err.message || "Failed to update song";
+      toast.error(msg);
+      setError(msg);
     } finally {
       setIsLoading(false);
     }
@@ -147,17 +153,18 @@ export const useSong = () => {
     try {
       await deleteSongRequest(id);
       toast.success("Song deleted");
-      setSong((prev) => prev.filter((song) => song._id !== id));
+      setSongs((prev) => prev.filter((song) => song._id !== id));
     } catch (err) {
-      toast.error("Failed to delete song");
-      setError(err.message);
+      const msg = err?.response?.data?.message || err.message || "Failed to delete song";
+      toast.error(msg);
+      setError(msg);
     } finally {
       setIsLoading(false);
     }
   };
 
   return {
-    song,
+    songs,
     currentSong,
     featuredSong,
     madeForYouSong,
