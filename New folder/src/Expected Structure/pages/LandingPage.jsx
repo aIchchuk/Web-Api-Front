@@ -76,9 +76,9 @@ const LandingPage = () => {
         <h2 className="text-3xl font-semibold mb-16">Featured Artists</h2>
         <div className="grid md:grid-cols-3 gap-10">
           {[
-            { name: 'Nova', desc: 'Electronic fusion vibes' },
-            { name: 'Luma', desc: 'Soothing vocals and indie pop' },
-            { name: 'Hexa', desc: 'High energy EDM beats' },
+            { name: 'Idealism', desc: 'Smooth lo-fi beats for focus and chill' },
+            { name: 'HOME', desc: 'Dreamy retro synthwave soundscapes' },
+            { name: 'Kordhell', desc: 'Dark, bass-heavy phonk energy' }
           ].map(({ name, desc }) => (
             <div key={name} className="bg-white/5 backdrop-blur-md p-6 rounded-xl shadow hover:shadow-lg transition-all border border-white/10">
               <h3 className="text-indigo-400 text-xl font-semibold mb-2">{name}</h3>
@@ -90,15 +90,23 @@ const LandingPage = () => {
 
       <Wave />
 
-      {/* Preview */}
-      <section className="py-24 px-6 max-w-4xl mx-auto text-center animate-fade-in-up">
-        <h2 className="text-3xl font-semibold mb-10">Preview</h2>
+    {/* Preview */}
+    <section className="py-24 px-6 max-w-4xl mx-auto text-center animate-fade-in-up">
+      <h2 className="text-3xl font-semibold mb-10">Preview</h2>
+      <div className="grid md:grid-cols-2 gap-8">
         <img
           src="https://i.pinimg.com/originals/92/23/43/9223430d43fda43bb37acadaa424e767.gif"
-          alt="Toot App Preview"
+          alt="Toot App Preview 1"
           className="rounded-xl shadow-xl mx-auto max-w-full"
         />
-      </section>
+        <img
+          src="https://i.pinimg.com/originals/92/23/43/9223430d43fda43bb37acadaa424e767.gif"
+          alt="Toot App Preview 2"
+          className="rounded-xl shadow-xl mx-auto max-w-full"
+        />
+      </div>
+    </section>
+
 
       <Wave flip />
 

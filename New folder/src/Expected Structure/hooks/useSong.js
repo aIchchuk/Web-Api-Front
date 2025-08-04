@@ -14,7 +14,7 @@ import {
 } from "../services/songService";
 
 export const useSong = () => {
-  const [songs, setSongs] = useState([]); // plural: array of songs
+  const [song, setSongs] = useState([]); // plural: array of songs
   const [currentSong, setCurrentSong] = useState(null);
   const [featuredSong, setFeaturedSongs] = useState([]);
   const [madeForYouSong, setMadeForYouSongs] = useState([]);
@@ -164,7 +164,7 @@ export const useSong = () => {
   };
 
   return {
-    songs,
+    song,
     currentSong,
     featuredSong,
     madeForYouSong,

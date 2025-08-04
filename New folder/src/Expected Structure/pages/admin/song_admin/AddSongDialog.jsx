@@ -123,6 +123,8 @@ const AddSongDialog = () => {
             </div>
 
             {/* Common fields */}
+
+            {/* Song Name */}
             <div className="space-y-1">
               <label className="text-sm">Song Name</label>
               <input
@@ -135,6 +137,7 @@ const AddSongDialog = () => {
               />
             </div>
 
+            {/* Artist Name */}
             <div className="space-y-1">
               <label className="text-sm">Artist Name</label>
               <input
@@ -147,6 +150,7 @@ const AddSongDialog = () => {
               />
             </div>
 
+            {/* Album Name */}
             <div className="space-y-1">
               <label className="text-sm">Album Name (optional)</label>
               <input
